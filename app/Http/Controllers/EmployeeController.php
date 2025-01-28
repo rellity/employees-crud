@@ -10,7 +10,7 @@ class EmployeeController extends Controller
 {
     public function dashboard() 
     {
-        $employees = Employee::all();
+        $employees = Employee::paginate(10);
 
         return Inertia::render("Dashboard", [
             'employees' => $employees,
@@ -34,13 +34,38 @@ class EmployeeController extends Controller
 
         Employee::create($validatedData);
 
-        return Inertia::render("Dashboard", [
-            'employees' => Employee::all()
-        ]);
+        return back();
     }
 
-    public function delete_employee(Request $request) 
+    public function remove($id) 
     {
-        
+        $employee = Employee::findOrFail($id);
+
+        $employee->delete();
+
+        return back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $employee = Employee::findOrFail($id);
+
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'gender' => 'required|string|max:10',
+            'birthday' => 'required|date',
+            'monthly_salary' => 'required|numeric',
+        ]);
+
+        $employee->update([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'gender' => $validated['gender'],
+            'birthday' => $validated['birthday'],
+            'monthly_salary' => $validated['monthly_salary'],
+        ]);
+
+        return back();
     }
 }

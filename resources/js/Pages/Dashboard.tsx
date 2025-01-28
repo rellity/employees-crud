@@ -6,7 +6,7 @@ import { EmployeeType } from '@/lib/types';
 import { Head } from '@inertiajs/react';
 
 
-export default function Dashboard({ employees }: { employees: EmployeeType[] }) {
+export default function Dashboard({ employees }: { employees: { data: EmployeeType[], current_page: number, last_page: number } }) {
     return (
         <AuthenticatedLayout
             header={
@@ -25,7 +25,7 @@ export default function Dashboard({ employees }: { employees: EmployeeType[] }) 
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <EmployeeTable data={employees} />
+                    <EmployeeTable data={employees.data} pagination={employees} />
                 </div>
             </div>
         </AuthenticatedLayout>

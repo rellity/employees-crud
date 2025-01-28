@@ -22,6 +22,9 @@ Route::get('/dashboard', [EmployeeController::class, 'dashboard'])
 Route::post('/employees/add', [EmployeeController::class, 'add'])
     ->name('employees.add');
 
+Route::delete('/employees/{id}', [EmployeeController::class, 'remove'])->name('employees.remove');
+Route::put('/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

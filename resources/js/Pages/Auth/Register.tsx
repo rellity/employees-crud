@@ -4,7 +4,8 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { Eye, EyeClosed } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,6 +14,9 @@ export default function Register() {
         password: '',
         password_confirmation: '',
     });
+
+    const [showPassword, setShowPassword] = useState(false); // State for show/hide password
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -64,16 +68,26 @@ export default function Register() {
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
+                    <div className="relative">
+                        <TextInput
+                            id="password"
+                            type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                            name="password"
+                            value={data.password}
+                            className="mt-1 block w-full pr-10" // Add padding for the icon
+                            autoComplete="new-password"
+                            onChange={(e) => setData('password', e.target.value)}
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+                            onClick={() => setShowPassword(!showPassword)} // Toggle show/hide password
+                        >
+                            {showPassword ? <EyeClosed /> : <Eye />}
+                        </button>
+                    </div>
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
@@ -84,18 +98,30 @@ export default function Register() {
                         value="Confirm Password"
                     />
 
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                        required
-                    />
+                    <div className="relative">
+                        <TextInput
+                            id="password_confirmation"
+                            type={showConfirmPassword ? 'text' : 'password'} // Toggle confirm password visibility
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            className="mt-1 block w-full pr-10" // Add padding for the icon
+                            autoComplete="new-password"
+                            onChange={(e) =>
+                                setData('password_confirmation', e.target.value)
+                            }
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+                            onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword) // Toggle confirm password visibility
+                            }
+                        >
+                            {showConfirmPassword ? <EyeClosed /> : <Eye />}
+                        </button>
+                    </div>
 
                     <InputError
                         message={errors.password_confirmation}
