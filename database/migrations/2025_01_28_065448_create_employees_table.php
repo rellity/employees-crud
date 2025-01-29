@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name'); 
             $table->string('last_name');  
-            $table->enum('gender', ['male', 'female']); 
+            $table->enum('gender', ['male', 'female', 'others']); 
             $table->date('birthday');    
             $table->decimal('monthly_salary', 10, 2); //  (max 99999999.99)
             $table->timestamps();    

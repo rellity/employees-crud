@@ -54,7 +54,7 @@ export function EmployeeTable({ data, pagination }: EmployeeTableProps) {
                             <TableCell>{employee.id}</TableCell>
                             <TableCell>{employee.first_name}</TableCell>
                             <TableCell>{employee.last_name}</TableCell>
-                            <TableCell>{employee.gender || "N/A"}</TableCell>
+                            <TableCell className="capitalize">{employee.gender}{employee.gender === "others" && '(LGBTQ+)'}</TableCell>
                             <TableCell>{formatDate(employee?.birthday)}</TableCell>
                             <TableCell>{formatSalary(employee?.monthly_salary)}</TableCell>
                             <TableCell>{formatDate(employee?.created_at)}</TableCell>

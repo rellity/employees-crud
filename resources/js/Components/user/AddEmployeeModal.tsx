@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useForm } from "@inertiajs/react"
+import { useForm, usePage } from "@inertiajs/react"
 import { format } from "date-fns"
 import { CalendarIcon, Plus } from "lucide-react"
 import { Input } from "../ui/input"
@@ -10,9 +10,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Button } from "../ui/button"
 import { toast } from "sonner"
 
-
 export function AddEmployeeModal() {
     const [open, setOpen] = useState(false)
+
+    const { flash: message } = usePage().props;
+
 
     const { data, setData, post, processing, errors, reset } = useForm({
         first_name: "",
@@ -27,10 +29,9 @@ export function AddEmployeeModal() {
         post(route("employees.add"), {
             preserveState: true,
             onSuccess: () => {
-                const message = "Employee created successfully!";
                 setOpen(false);
                 reset();
-                toast.success(message)
+                toast.success(message.success)
             },
 
         });
@@ -84,6 +85,7 @@ export function AddEmployeeModal() {
                             <SelectContent>
                                 <SelectItem value="male">Male</SelectItem>
                                 <SelectItem value="female">Female</SelectItem>
+                                <SelectItem value="others">Others(LGBTQ+)</SelectItem>
                             </SelectContent>
                         </Select>
                         {errors.gender && <div className="text-red-500 text-sm mt-1">{errors.gender}</div>}

@@ -27,14 +27,14 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:male,female,others',
             'birthday' => 'required|date',
             'monthly_salary' => 'required|numeric|between:0,99999999.99',
         ]);
 
         Employee::create($validatedData);
 
-        return back();
+        return back()->with('success', "yay! employee is added!");
     }
 
     public function remove($id) 
@@ -53,9 +53,9 @@ class EmployeeController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'gender' => 'required|string|max:10',
+            'gender' => 'required|in:male,female,others',
             'birthday' => 'required|date',
-            'monthly_salary' => 'required|numeric',
+            'monthly_salary' => 'required|numeric|between:0,99999999.99',
         ]);
 
         $employee->update([
@@ -66,6 +66,6 @@ class EmployeeController extends Controller
             'monthly_salary' => $validated['monthly_salary'],
         ]);
 
-        return back();
+        return back()->with('success', 'yay! employee is updated!');
     }
 }
