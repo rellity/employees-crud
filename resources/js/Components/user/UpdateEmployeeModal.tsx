@@ -46,7 +46,7 @@ export function UpdateEmployeeModal({ employee, trigger }: UpdateEmployeeModalPr
             preserveState: true,
             onSuccess: () => {
                 setOpen(false);
-                toast.success(flash.success)
+                toast.success(flash.success ?? "employee updated successfully!")
             },
         })
     }

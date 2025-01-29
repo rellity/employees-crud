@@ -31,7 +31,7 @@ export function AddEmployeeModal() {
             onSuccess: () => {
                 setOpen(false);
                 reset();
-                toast.success(message.success)
+                toast.success(message.success ?? "employee added successfully!")
             },
 
         });

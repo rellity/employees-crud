@@ -14,7 +14,7 @@ import {
 import { format } from "date-fns"
 import { EmployeeType } from "@/lib/types"
 import { toast } from "sonner"
-import { router } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 
 interface DeleteDialogProps {
     employee: EmployeeType
@@ -24,11 +24,13 @@ interface DeleteDialogProps {
 export function DeleteEmployeeModal({ employee, trigger }: DeleteDialogProps) {
     const [open, setOpen] = useState(false)
 
+    const { flash } = usePage().props
+
     const onDelete = (id: number) => {
         router.delete(route("employees.remove", { id }), {
             preserveState: true,
             onSuccess: () => {
-                const message = "Employee removed successfully!";
+                const message = flash.success || "employee record deleted successfully!";
                 toast.success(message);
             },
             onError: (error) => {

@@ -43,7 +43,7 @@ class EmployeeController extends Controller
 
         $employee->delete();
 
-        return back();
+        return back()->with('success', 'ok! record deleted');
     }
 
     public function update(Request $request, $id)
