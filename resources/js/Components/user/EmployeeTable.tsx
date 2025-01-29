@@ -45,7 +45,7 @@ export function EmployeeTable({ data, pagination }: EmployeeTableProps) {
                         <TableHead>Monthly Salary</TableHead>
                         <TableHead>Created At</TableHead>
                         <TableHead>Updated At</TableHead>
-                        <TableHead>Action</TableHead>
+                        <TableHead className="text-center">Action</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -60,7 +60,7 @@ export function EmployeeTable({ data, pagination }: EmployeeTableProps) {
                             <TableCell>{formatDate(employee?.created_at)}</TableCell>
                             <TableCell>{formatDate(employee?.updated_at)}</TableCell>
                             <TableCell>
-                                <div className="flex flex-row space-x-3">
+                                <div className="flex flex-row space-x-3 items-center justify-center">
                                     <UpdateEmployeeModal employee={employee as EmployeeType} trigger={
                                         <Button variant="ghost">
                                             <PenBox className="text-black" />
